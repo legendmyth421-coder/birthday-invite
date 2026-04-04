@@ -138,15 +138,17 @@
             transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
             transform: translateY(0) scale(0.8);
             opacity: 0;
+            visibility: hidden;
             border: 3px double #d4af37;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
         }
 
         .envelope-wrapper.open .letter {
-            transform: translateY(-280px) scale(1);
+            transform: translateY(-320px) scale(1);
             opacity: 1;
+            visibility: visible;
             z-index: 25;
         }
 
@@ -492,7 +494,7 @@
 
         /* Continue button with fancy style */
         .continue-btn {
-            margin-top: 300px;
+            margin-top: 350px;
             padding: 20px 55px;
             font-size: 1.5em;
             border: 3px solid white;
@@ -511,6 +513,8 @@
             font-weight: 400;
             letter-spacing: 2px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 30;
         }
 
         @keyframes fadeIn {
