@@ -135,33 +135,32 @@
 </head>
 <body>
     <div class="container">
-        <!-- Puzzle Stage 1 -->
+        <!-- Puzzle Stage 1 - Charade -->
         <div id="stage1" class="puzzle-box">
-            <div class="emoji">🎂</div>
-            <h1>Mission: Unlock the Party!</h1>
+            <div class="emoji">🎭</div>
+            <h1>Charade Challenge #1</h1>
             <p class="clue">
-                I have cities, but no houses.<br>
-                I have mountains, but no trees.<br>
-                I have water, but no fish.<br>
-                What am I?
+                Guess the phrase from these clues:<br><br>
+                <span style="font-size: 2em;">🎂 🎈 🎉</span><br><br>
+                <em>"What you do once a year on your special day"</em>
             </p>
-            <input type="text" id="answer1" placeholder="Type your answer...">
-            <button onclick="checkAnswer1()">Unlock</button>
-            <p class="hint">💡 Hint: You use it to find places!</p>
+            <input type="text" id="answer1" placeholder="Type your guess...">
+            <button onclick="checkAnswer1()">Submit</button>
+            <p class="hint">💡 Hint: It involves cake, balloons, and fun!</p>
         </div>
 
-        <!-- Puzzle Stage 2 -->
+        <!-- Puzzle Stage 2 - Charade -->
         <div id="stage2" class="puzzle-box hidden">
-            <div class="emoji">🎉</div>
-            <h1>Stage 2: The Final Code</h1>
+            <div class="emoji">🎭</div>
+            <h1>Charade Challenge #2</h1>
             <p class="clue">
-                The more you take,<br>
-                The more you leave behind.<br>
-                What am I?
+                Act out this phrase:<br><br>
+                <span style="font-size: 2em;">👯 💃 🕺 🎶</span><br><br>
+                <em>"What everyone does at a party with music"</em>
             </p>
-            <input type="text" id="answer2" placeholder="Type your answer...">
-            <button onclick="checkAnswer2()">Reveal</button>
-            <p class="hint">💡 Hint: Think about walking...</p>
+            <input type="text" id="answer2" placeholder="Type your guess...">
+            <button onclick="checkAnswer2()">Submit</button>
+            <p class="hint">💡 Hint: Move your body to the rhythm!</p>
         </div>
 
         <!-- Final Invitation -->
@@ -182,10 +181,12 @@
     </div>
 
     <script>
-        // Stage 1: Riddle answer (map)
+        // Stage 1: Charade answer (celebrate birthday)
         function checkAnswer1() {
             const answer = document.getElementById('answer1').value.trim().toLowerCase();
-            if (answer === 'map' || answer === 'a map') {
+            if (answer.includes('birthday') || answer.includes('celebrate') || 
+                answer === 'have a birthday' || answer === 'celebrate birthday' ||
+                answer.includes('party')) {
                 document.getElementById('stage1').classList.add('hidden');
                 document.getElementById('stage2').classList.remove('hidden');
             } else {
@@ -193,10 +194,11 @@
             }
         }
 
-        // Stage 2: Riddle answer (footsteps)
+        // Stage 2: Charade answer (dance)
         function checkAnswer2() {
             const answer = document.getElementById('answer2').value.trim().toLowerCase();
-            if (answer === 'footsteps' || answer === 'footstep' || answer === 'steps') {
+            if (answer.includes('dance') || answer === 'dancing' || 
+                answer.includes('boogie') || answer.includes('groove')) {
                 document.getElementById('stage2').classList.add('hidden');
                 document.getElementById('invitation').classList.remove('hidden');
                 createConfetti();
