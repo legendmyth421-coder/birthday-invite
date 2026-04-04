@@ -140,29 +140,28 @@
             <div class="emoji">🎂</div>
             <h1>Mission: Unlock the Party!</h1>
             <p class="clue">
-                I was born in a year.<br>
-                Take the last two digits,<br>
-                Add them together,<br>
-                That's your key to enter!
+                I have cities, but no houses.<br>
+                I have mountains, but no trees.<br>
+                I have water, but no fish.<br>
+                What am I?
             </p>
-            <input type="text" id="answer1" placeholder="Enter the sum...">
+            <input type="text" id="answer1" placeholder="Type your answer...">
             <button onclick="checkAnswer1()">Unlock</button>
-            <p class="hint">💡 Hint: Think about when I was born...</p>
+            <p class="hint">💡 Hint: You use it to find places!</p>
         </div>
 
         <!-- Puzzle Stage 2 -->
         <div id="stage2" class="puzzle-box hidden">
             <div class="emoji">🎉</div>
-            <h1>Stage 2: The Date Code</h1>
+            <h1>Stage 2: The Final Code</h1>
             <p class="clue">
-                The party is on the 23rd!<br>
-                What month are we in now?<br>
-                Multiply the month number by 2,<br>
-                Then subtract 1!
+                The more you take,<br>
+                The more you leave behind.<br>
+                What am I?
             </p>
-            <input type="text" id="answer2" placeholder="Calculate the code...">
+            <input type="text" id="answer2" placeholder="Type your answer...">
             <button onclick="checkAnswer2()">Reveal</button>
-            <p class="hint">💡 Hint: Current month = April = 4</p>
+            <p class="hint">💡 Hint: Think about walking...</p>
         </div>
 
         <!-- Final Invitation -->
@@ -183,10 +182,10 @@
     </div>
 
     <script>
-        // Stage 1: Year puzzle (assuming birth year 2006 -> 0+6=6)
+        // Stage 1: Riddle answer (map)
         function checkAnswer1() {
-            const answer = document.getElementById('answer1').value.trim();
-            if (answer === '6' || answer.toLowerCase() === 'six') {
+            const answer = document.getElementById('answer1').value.trim().toLowerCase();
+            if (answer === 'map' || answer === 'a map') {
                 document.getElementById('stage1').classList.add('hidden');
                 document.getElementById('stage2').classList.remove('hidden');
             } else {
@@ -194,10 +193,10 @@
             }
         }
 
-        // Stage 2: Month calculation (April = 4, 4*2-1 = 7)
+        // Stage 2: Riddle answer (footsteps)
         function checkAnswer2() {
-            const answer = document.getElementById('answer2').value.trim();
-            if (answer === '7') {
+            const answer = document.getElementById('answer2').value.trim().toLowerCase();
+            if (answer === 'footsteps' || answer === 'footstep' || answer === 'steps') {
                 document.getElementById('stage2').classList.add('hidden');
                 document.getElementById('invitation').classList.remove('hidden');
                 createConfetti();
