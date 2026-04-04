@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Invitation QR Code</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        #qrcode {
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .download-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .emoji {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .url-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8eaf6;
+            border-radius: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .share-options {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .share-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="emoji">🎂📱</div>
+            <h1>Your Birthday Invitation</h1>
+            <p class="subtitle">Scan the QR code or share the link!</p>
+            
+            <div id="qrcode"></div>
+            
+            <div class="url-display" id="urlDisplay">
+                Loading URL...
+            </div>
+
+            <button class="download-btn" onclick="downloadQR()">
+                📥 Download QR Code
+            </button>
+
+            <div class="share-options">
+                <button class="share-btn" onclick="copyLink()">
+                    📋 Copy Link
+                </button>
+                <button class="share-btn" onclick="shareWhatsApp()">
+                    💬 WhatsApp
+                </button>
+                <button class="share-btn" onclick="shareEmail()">
+                    📧 Email
+                </button>
+            </div>
+
+            <div class="instructions">
+                <h3>How to Share:</h3>
+                <ol>
+                    <li><strong>Upload to GitHub Pages</strong> (free & easy)</li>
+                    <li><strong>Or use Netlify Drop</strong> - drag & drop the folder</li>
+                    <li><strong>Get your live URL</strong></li>
+                    <li><strong>Update this page with your URL</strong></li>
+                    <li><strong>Share the QR code or link!</strong></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // IMPORTANT: Replace this with your actual hosted URL
+        const INVITATION_URL = 'https://yourusername.github.io/birthday-invite/';
+        
+        // Display the URL
+        document.getElementById('urlDisplay').textContent = INVITATION_URL;
+
+        // Generate QR Code
+        const qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: INVITATION_URL,
+            width: 256,
+            height: 256,
+            colorDark : "#667eea",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Download QR Code
+        function downloadQR() {
+            const canvas = document.querySelector('#qrcode canvas');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.download = 'birthday-invitation-qr.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }
+        }
+
+        // Copy Link
+        function copyLink() {
+            navigator.clipboard.writeText(INVITATION_URL).then(() => {
+                alert('Link copied to clipboard! 📋');
+            }).catch(() => {
+                alert('Failed to copy. Please copy manually.');
+            });
+        }
+
+        // Share via WhatsApp
+        function shareWhatsApp() {
+            const message = encodeURIComponent(
+                "🎉 You're invited to my birthday party! 🎂\n\n" +
+                "Solve the puzzle to unlock the details!\n\n" +
+                INVITATION_URL
+            );
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+
+        // Share via Email
+        function shareEmail() {
+            const subject = encodeURIComponent("You're Invited! 🎂 Birthday Party");
+            const body = encodeURIComponent(
+                "Hey!\n\n" +
+                "You're invited to my birthday party on April 23rd! 🎉\n\n" +
+                "Click the link and solve the puzzle to unlock the party details:\n\n" +
+                INVITATION_URL + "\n\n" +
+                "Can't wait to celebrate with you! 🎊"
+            );
+            window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+        }
+
+        // Instructions for deployment
+        console.log('%c🎂 Birthday Invitation QR Code Generator', 'font-size: 20px; color: #667eea;');
+        console.log('%cTo make this work:', 'font-size: 14px; color: #333;');
+        console.log('1. Host your index.html file online (GitHub Pages recommended)');
+        console.log('2. Replace INVITATION_URL with your actual URL');
+        console.log('3. Share the QR code or link!');
+    </script>
+</body>
+</html>

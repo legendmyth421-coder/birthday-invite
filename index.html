@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You've Been Invited!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .puzzle-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .clue {
+            font-size: 1.2em;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .invitation {
+            animation: reveal 1s ease-out;
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .party-details {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            margin: 15px 0;
+            font-size: 1.3em;
+        }
+
+        .emoji {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .hint {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Puzzle Stage 1 -->
+        <div id="stage1" class="puzzle-box">
+            <div class="emoji">🎂</div>
+            <h1>Mission: Unlock the Party!</h1>
+            <p class="clue">
+                I was born in a year.<br>
+                Take the last two digits,<br>
+                Add them together,<br>
+                That's your key to enter!
+            </p>
+            <input type="text" id="answer1" placeholder="Enter the sum...">
+            <button onclick="checkAnswer1()">Unlock</button>
+            <p class="hint">💡 Hint: Think about when I was born...</p>
+        </div>
+
+        <!-- Puzzle Stage 2 -->
+        <div id="stage2" class="puzzle-box hidden">
+            <div class="emoji">🎉</div>
+            <h1>Stage 2: The Date Code</h1>
+            <p class="clue">
+                The party is on the 23rd!<br>
+                What month are we in now?<br>
+                Multiply the month number by 2,<br>
+                Then subtract 1!
+            </p>
+            <input type="text" id="answer2" placeholder="Calculate the code...">
+            <button onclick="checkAnswer2()">Reveal</button>
+            <p class="hint">💡 Hint: Current month = April = 4</p>
+        </div>
+
+        <!-- Final Invitation -->
+        <div id="invitation" class="puzzle-box hidden invitation">
+            <div class="emoji">🎊🎈🎁</div>
+            <h1>YOU'RE INVITED!</h1>
+            <div class="party-details">
+                <div class="detail-item">📅 <strong>Date:</strong> April 23rd, 2026</div>
+                <div class="detail-item">⏰ <strong>Time:</strong> [Add your time]</div>
+                <div class="detail-item">📍 <strong>Location:</strong> [Add your location]</div>
+                <div class="detail-item">🎮 <strong>Dress Code:</strong> Come as your favorite character!</div>
+            </div>
+            <p style="margin-top: 20px; font-size: 1.1em;">
+                Can't wait to celebrate with you! 🥳
+            </p>
+            <button onclick="createConfetti()" style="margin-top: 20px;">Celebrate! 🎉</button>
+        </div>
+    </div>
+
+    <script>
+        // Stage 1: Year puzzle (assuming birth year 2006 -> 0+6=6)
+        function checkAnswer1() {
+            const answer = document.getElementById('answer1').value.trim();
+            if (answer === '6' || answer.toLowerCase() === 'six') {
+                document.getElementById('stage1').classList.add('hidden');
+                document.getElementById('stage2').classList.remove('hidden');
+            } else {
+                alert('Not quite! Try again! 🤔');
+            }
+        }
+
+        // Stage 2: Month calculation (April = 4, 4*2-1 = 7)
+        function checkAnswer2() {
+            const answer = document.getElementById('answer2').value.trim();
+            if (answer === '7') {
+                document.getElementById('stage2').classList.add('hidden');
+                document.getElementById('invitation').classList.remove('hidden');
+                createConfetti();
+            } else {
+                alert('Close! Give it another shot! 💭');
+            }
+        }
+
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.opacity = Math.random();
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 30);
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('answer1').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAnswer1();
+        });
+        
+        document.getElementById('answer2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAnswer2();
+        });
+    </script>
+</body>
+</html>
