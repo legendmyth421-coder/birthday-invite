@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You've Got Mail! 💌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .instruction {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Envelope Container */
+        .envelope-wrapper {
+            position: relative;
+            width: 400px;
+            height: 280px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        /* Envelope Body */
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #f4e4c1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        /* Envelope Flap (Top Triangle) */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-top: 140px solid #e8d5a8;
+            z-index: 30;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+
+        /* Envelope Pocket (Bottom Triangles) */
+        .pocket-left {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid #d4c498;
+            border-top: 140px solid transparent;
+            border-bottom: 140px solid transparent;
+            z-index: 20;
+        }
+
+        .pocket-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-right: 200px solid #d4c498;
+            border-top: 140px solid transparent;
+            border-bottom: 140px solid transparent;
+            z-index: 20;
+        }
+
+        .pocket-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 140px solid #c9b888;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            z-index: 20;
+        }
+
+        /* Letter Inside */
+        .letter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 15;
+            transition: transform 0.8s ease-in-out 0.3s;
+            transform: translateY(0);
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-250px);
+            z-index: 25;
+        }
+
+        .letter-header {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .letter-body {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+            text-align: left;
+        }
+
+        .letter-signature {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+            text-align: right;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ff6b6b 0%, #c92a2a 100%);
+            border-radius: 50%;
+            z-index: 35;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.3s;
+        }
+
+        .envelope-wrapper.open .wax-seal {
+            opacity: 0;
+        }
+
+        /* Button to continue */
+        .continue-btn {
+            margin-top: 300px;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            background: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            opacity: 0;
+            pointer-events: none;
+            animation: fadeIn 0.5s ease-in-out 1.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float-particle 6s ease-in-out infinite;
+        }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div id="particles"></div>
+
+    <div class="container">
+        <div class="instruction">✨ Click the envelope to open ✨</div>
+        
+        <div class="envelope-wrapper" id="envelope" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="pocket-left"></div>
+                <div class="pocket-right"></div>
+                <div class="pocket-bottom"></div>
+                
+                <div class="letter">
+                    <div class="letter-header">🎂 You're Invited!</div>
+                    <div class="letter-body">
+                        Dear Friend,<br><br>
+                        I'm turning another year older and I can't imagine celebrating without you!<br><br>
+                        Join me for an unforgettable birthday celebration filled with fun, laughter, and great memories.<br><br>
+                        Solve the puzzles ahead to unlock all the party details!
+                    </div>
+                    <div class="letter-signature">
+                        Can't wait to see you there! 🎉<br>
+                        - Your Friend
+                    </div>
+                </div>
+                
+                <div class="wax-seal">💌</div>
+            </div>
+        </div>
+
+        <button class="continue-btn" id="continueBtn" onclick="goToPuzzle()">
+            Open Invitation 🎁
+        </button>
+    </div>
+
+    <script>
+        let isOpen = false;
+
+        function openEnvelope() {
+            if (!isOpen) {
+                const envelope = document.getElementById('envelope');
+                envelope.classList.add('open');
+                isOpen = true;
+                
+                // Play a subtle sound effect (optional - browser may block)
+                try {
+                    const audio = new Audio();
+                    audio.volume = 0.3;
+                    // You can add a paper sound effect here if desired
+                } catch(e) {
+                    // Audio might be blocked by browser
+                }
+            }
+        }
+
+        function goToPuzzle() {
+            window.location.href = 'index.html';
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Auto-open hint after 3 seconds
+        setTimeout(() => {
+            if (!isOpen) {
+                const instruction = document.querySelector('.instruction');
+                instruction.textContent = '👆 Go ahead, click it! 👆';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
