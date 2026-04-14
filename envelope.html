@@ -13,13 +13,70 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             padding-top: 280px;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sparkle particles */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-float 3s ease-in-out infinite;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+        }
+
+        @keyframes sparkle-float {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Floating emojis */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: float-up 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
@@ -31,17 +88,23 @@
 
         .instruction {
             color: white;
-            font-size: 1.8em;
+            font-size: 2.5em;
             margin-bottom: 40px;
-            animation: pulse 2s ease-in-out infinite;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse-glow 2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
             font-family: 'Great Vibes', cursive;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        @keyframes pulse-glow {
+            0%, 100% { 
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                transform: scale(1.05);
+                text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.4);
+            }
         }
 
         /* Envelope Container */
@@ -50,11 +113,25 @@
             width: 400px;
             height: 280px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+            animation: envelope-float 3s ease-in-out infinite;
+        }
+
+        @keyframes envelope-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(-1deg); }
+            75% { transform: translateY(-5px) rotate(1deg); }
         }
 
         .envelope-wrapper:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: scale(1.08) rotate(0deg); }
+            25% { transform: scale(1.08) rotate(-3deg); }
+            75% { transform: scale(1.08) rotate(3deg); }
         }
 
         /* Envelope Body */
@@ -62,9 +139,12 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: #f4e4c1;
+            background: linear-gradient(135deg, #f4e4c1 0%, #ffe4b5 50%, #f4e4c1 100%);
             border-radius: 0 0 10px 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.3),
+                inset 0 2px 10px rgba(255, 255, 255, 0.5);
             z-index: 10;
         }
 
@@ -77,10 +157,11 @@
             height: 0;
             border-left: 200px solid transparent;
             border-right: 200px solid transparent;
-            border-top: 140px solid #e8d5a8;
+            border-top: 140px solid linear-gradient(to bottom, #ffd700, #e8d5a8);
             z-index: 30;
             transform-origin: top;
-            transition: transform 0.6s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
         }
 
         .envelope-wrapper.open .flap {
@@ -256,35 +337,43 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             background: radial-gradient(circle at 30% 30%, #ff6b6b 0%, #c92a2a 50%, #8b0000 100%);
             border-radius: 50%;
             z-index: 35;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8em;
+            font-size: 2em;
             color: white;
             box-shadow: 
                 0 6px 15px rgba(0, 0, 0, 0.4),
                 inset 0 2px 8px rgba(255, 255, 255, 0.3),
-                inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+                inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 107, 107, 0.5);
             transition: all 0.4s;
             animation: pulse-seal 2s ease-in-out infinite;
         }
 
         @keyframes pulse-seal {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), inset 0 2px 8px rgba(255, 255, 255, 0.3), inset 0 -2px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 107, 107, 0.5);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.08);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(255, 255, 255, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 107, 107, 0.8);
+            }
         }
 
         .envelope-wrapper:hover .wax-seal {
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
             box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.5),
+                0 10px 25px rgba(0, 0, 0, 0.5),
                 inset 0 2px 8px rgba(255, 255, 255, 0.4),
-                inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+                inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+                0 0 50px rgba(255, 107, 107, 0.9);
         }
 
         .envelope-wrapper.open .wax-seal {
@@ -300,10 +389,15 @@
             transform: translateX(-50%);
             color: white;
             font-family: 'Great Vibes', cursive;
-            font-size: 1.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            animation: bounce-hint 1.5s ease-in-out infinite;
+            font-size: 1.8em;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
+            animation: bounce-hint 1.5s ease-in-out infinite, hint-glow 2s ease-in-out infinite;
             white-space: nowrap;
+        }
+
+        @keyframes hint-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4); }
+            50% { text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 0.6), 0 0 80px rgba(255, 255, 255, 0.4); }
         }
 
         @keyframes bounce-hint {
@@ -545,8 +639,8 @@
         /* Continue button with fancy style */
         .continue-btn {
             margin-top: 350px;
-            padding: 20px 55px;
-            font-size: 1.5em;
+            padding: 22px 60px;
+            font-size: 1.7em;
             border: 3px solid white;
             border-radius: 50px;
             background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 50%, #ffa07a 100%);
@@ -555,16 +649,22 @@
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             box-shadow: 
                 0 8px 25px rgba(255, 107, 107, 0.5),
-                inset 0 2px 10px rgba(255, 255, 255, 0.3);
+                inset 0 2px 10px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(255, 107, 107, 0.4);
             opacity: 0;
             pointer-events: none;
-            animation: fadeIn 0.6s ease-in-out 2s forwards;
+            animation: fadeIn 0.6s ease-in-out 2s forwards, btn-glow 2s ease-in-out infinite 2s;
             font-family: 'Great Vibes', cursive;
             font-weight: 400;
             letter-spacing: 2px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 30;
+        }
+
+        @keyframes btn-glow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(255, 107, 107, 0.8), inset 0 2px 10px rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 107, 107, 0.6), 0 0 70px rgba(255, 107, 107, 0.4); }
         }
 
         @keyframes fadeIn {
@@ -579,10 +679,12 @@
         }
 
         .continue-btn:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.1);
             box-shadow: 
-                0 12px 35px rgba(255, 107, 107, 0.7),
-                inset 0 2px 10px rgba(255, 255, 255, 0.4);
+                0 12px 40px rgba(255, 107, 107, 0.9),
+                inset 0 2px 10px rgba(255, 255, 255, 0.4),
+                0 0 60px rgba(255, 107, 107, 0.8),
+                0 0 100px rgba(255, 107, 107, 0.5);
             border-color: #fffacd;
         }
 
@@ -691,20 +793,90 @@
     <script>
         let isOpen = false;
 
+        // Create sparkle particles
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.animationDelay = Math.random() * 3 + 's';
+                    sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        // Create floating emojis
+        function createFloatingEmojis() {
+            const emojis = ['🎂', '🎈', '🎉', '🎁', '🎊', '✨', '🎭', '💌', '🥳', '🎵'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'floating-emoji';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDelay = Math.random() * 8 + 's';
+                    emoji.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 10000);
+                }, i * 500);
+            }
+        }
+
+        // Epic confetti explosion
+        function confettiExplosion() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#ff6b9d', '#00b894', '#fd79a8'];
+            
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = '50%';
+                    confetti.style.top = '50%';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '9999';
+                    
+                    const angle = (Math.random() * 360) * (Math.PI / 180);
+                    const velocity = Math.random() * 500 + 300;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity - 300;
+                    
+                    confetti.style.transition = 'all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    document.body.appendChild(confetti);
+                    
+                    requestAnimationFrame(() => {
+                        confetti.style.transform = `translate(${vx}px, ${vy}px) rotate(${Math.random() * 720}deg)`;
+                        confetti.style.opacity = '0';
+                    });
+                    
+                    setTimeout(() => confetti.remove(), 2500);
+                }, i * 10);
+            }
+        }
+
         function openEnvelope() {
             if (!isOpen) {
                 const envelope = document.getElementById('envelope');
                 envelope.classList.add('open');
                 isOpen = true;
                 
-                // Play a subtle sound effect (optional - browser may block)
+                // Epic confetti explosion!
+                confettiExplosion();
+                
+                // Play celebration sound (optional)
                 try {
                     const audio = new Audio();
                     audio.volume = 0.3;
-                    // You can add a paper sound effect here if desired
-                } catch(e) {
-                    // Audio might be blocked by browser
-                }
+                } catch(e) {}
             }
         }
 
@@ -712,21 +884,13 @@
             window.location.href = 'index.html';
         }
 
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.top = Math.random() * 100 + 'vh';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-                container.appendChild(particle);
-            }
-        }
-
-        createParticles();
+        // Initialize effects
+        createSparkles();
+        createFloatingEmojis();
+        
+        // Continuously create effects
+        setInterval(createSparkles, 3000);
+        setInterval(createFloatingEmojis, 8000);
 
         // Auto-open hint after 3 seconds
         setTimeout(() => {
