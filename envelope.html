@@ -714,6 +714,200 @@
                 transform: translateY(-100vh) translateX(50px);
             }
         }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 180px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .instruction {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+
+            .envelope-wrapper {
+                width: 320px;
+                height: 224px;
+            }
+
+            .flap {
+                border-left-width: 160px;
+                border-right-width: 160px;
+                border-top-width: 112px;
+            }
+
+            .pocket-left {
+                border-left-width: 160px;
+                border-top-width: 112px;
+                border-bottom-width: 112px;
+            }
+
+            .pocket-right {
+                border-right-width: 160px;
+                border-top-width: 112px;
+                border-bottom-width: 112px;
+            }
+
+            .pocket-bottom {
+                border-bottom-width: 112px;
+                border-left-width: 160px;
+                border-right-width: 160px;
+            }
+
+            .wax-seal {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5em;
+            }
+
+            .click-hint {
+                font-size: 1.4em;
+                bottom: -40px;
+            }
+
+            .letter {
+                width: 290px;
+                max-height: 320px;
+                padding: 20px;
+            }
+
+            .envelope-wrapper.open .letter {
+                transform: translateY(-280px) scale(1);
+            }
+
+            .letter-header {
+                font-size: 2em;
+            }
+
+            .letter-body {
+                font-size: 1em;
+                line-height: 1.8;
+            }
+
+            .letter-signature {
+                font-size: 1.2em;
+            }
+
+            .cake-container {
+                right: -140px;
+                transform: translateY(-50%) scale(0.8);
+            }
+
+            .envelope-wrapper.open .cake-container {
+                right: -120px;
+            }
+
+            .continue-btn {
+                margin-top: 280px;
+                padding: 18px 45px;
+                font-size: 1.4em;
+            }
+
+            .floating-emoji {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 140px;
+            }
+
+            .instruction {
+                font-size: 1.5em;
+            }
+
+            .envelope-wrapper {
+                width: 280px;
+                height: 196px;
+            }
+
+            .flap {
+                border-left-width: 140px;
+                border-right-width: 140px;
+                border-top-width: 98px;
+            }
+
+            .pocket-left {
+                border-left-width: 140px;
+                border-top-width: 98px;
+                border-bottom-width: 98px;
+            }
+
+            .pocket-right {
+                border-right-width: 140px;
+                border-top-width: 98px;
+                border-bottom-width: 98px;
+            }
+
+            .pocket-bottom {
+                border-bottom-width: 98px;
+                border-left-width: 140px;
+                border-right-width: 140px;
+            }
+
+            .wax-seal {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3em;
+            }
+
+            .letter {
+                width: 250px;
+                max-height: 280px;
+                padding: 15px;
+            }
+
+            .envelope-wrapper.open .letter {
+                transform: translateY(-250px) scale(1);
+            }
+
+            .letter-header {
+                font-size: 1.7em;
+                margin-bottom: 10px;
+            }
+
+            .letter-body {
+                font-size: 0.95em;
+                line-height: 1.7;
+            }
+
+            .letter-signature {
+                font-size: 1.1em;
+                margin-top: 15px;
+                padding-top: 10px;
+            }
+
+            .cake-container {
+                right: -120px;
+                transform: translateY(-50%) scale(0.7);
+            }
+
+            .envelope-wrapper.open .cake-container {
+                right: -100px;
+            }
+
+            .continue-btn {
+                margin-top: 240px;
+                padding: 15px 40px;
+                font-size: 1.3em;
+            }
+
+            .click-hint {
+                font-size: 1.2em;
+                bottom: -35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
