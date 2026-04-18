@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're Invited! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sparkle particles */
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkle-float 3s ease-in-out infinite;
+            box-shadow: 0 0 10px white, 0 0 20px white;
+        }
+
+        @keyframes sparkle-float {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Floating emojis */
+        .floating-emoji {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            animation: float-up 8s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .party-card {
+            background: linear-gradient(135deg, #fffef9 0%, #fff5e6 50%, #fff9e6 100%);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(255, 215, 0, 0.3);
+            border: 3px double #d4af37;
+            animation: card-appear 1s ease-out;
+        }
+
+        @keyframes card-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .party-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .party-details {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4em;
+            line-height: 2.2;
+            color: #2c3e50;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .party-details p {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .party-details strong {
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        .emoji-icon {
+            font-size: 1.3em;
+            margin-right: 10px;
+        }
+
+        .celebration-btn {
+            margin-top: 30px;
+            padding: 20px 50px;
+            font-size: 1.6em;
+            border: 3px solid white;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 50%, #ffa07a 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 
+                0 8px 25px rgba(255, 107, 107, 0.5),
+                inset 0 2px 10px rgba(255, 255, 255, 0.3),
+                0 0 30px rgba(255, 107, 107, 0.4);
+            font-family: 'Great Vibes', cursive;
+            letter-spacing: 2px;
+            animation: btn-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes btn-glow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5), inset 0 2px 10px rgba(255, 255, 255, 0.3), 0 0 30px rgba(255, 107, 107, 0.4); }
+            50% { box-shadow: 0 8px 35px rgba(255, 107, 107, 0.8), inset 0 2px 10px rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 107, 107, 0.6), 0 0 70px rgba(255, 107, 107, 0.4); }
+        }
+
+        .celebration-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 
+                0 12px 40px rgba(255, 107, 107, 0.9),
+                inset 0 2px 10px rgba(255, 255, 255, 0.4),
+                0 0 60px rgba(255, 107, 107, 0.8),
+                0 0 100px rgba(255, 107, 107, 0.5);
+        }
+
+        .divider {
+            margin: 30px 0;
+            border: none;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #d4af37, transparent);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .party-card {
+                padding: 40px 30px;
+            }
+
+            .party-title {
+                font-size: 2.8em;
+            }
+
+            .party-details {
+                font-size: 1.2em;
+            }
+
+            .celebration-btn {
+                font-size: 1.4em;
+                padding: 18px 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .party-card {
+                padding: 30px 20px;
+            }
+
+            .party-title {
+                font-size: 2.2em;
+            }
+
+            .party-details {
+                font-size: 1.1em;
+            }
+
+            .party-details p {
+                padding: 12px;
+            }
+
+            .celebration-btn {
+                font-size: 1.3em;
+                padding: 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="party-card">
+            <div class="party-title">🎉 You're Invited! 🎉</div>
+            
+            <hr class="divider">
+            
+            <div class="party-details">
+                <p>
+                    <span class="emoji-icon">📅</span>
+                    <strong>Date:</strong> April 23rd, 2026
+                </p>
+                <p>
+                    <span class="emoji-icon">⏰</span>
+                    <strong>Time:</strong> [Add your time]
+                </p>
+                <p>
+                    <span class="emoji-icon">📍</span>
+                    <strong>Location:</strong> [Add your location]
+                </p>
+                <p>
+                    <span class="emoji-icon">🎮</span>
+                    <strong>Dress Code:</strong> Come as your favorite character!
+                </p>
+            </div>
+
+            <hr class="divider">
+
+            <button class="celebration-btn" onclick="celebrate()">
+                Celebrate! 🎊
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Create sparkle particles
+        function createSparkles() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.animationDelay = Math.random() * 3 + 's';
+                    sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        // Create floating emojis
+        function createFloatingEmojis() {
+            const emojis = ['🎂', '🎈', '🎉', '🎁', '🎊', '✨', '🥳', '🎵', '🎭', '💫'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'floating-emoji';
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.animationDelay = Math.random() * 8 + 's';
+                    emoji.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 10000);
+                }, i * 500);
+            }
+        }
+
+        // Epic confetti explosion
+        function confettiExplosion() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#ff6b9d', '#00b894', '#fd79a8'];
+            
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = '50%';
+                    confetti.style.top = '50%';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    confetti.style.pointerEvents = 'none';
+                    confetti.style.zIndex = '9999';
+                    
+                    const angle = (Math.random() * 360) * (Math.PI / 180);
+                    const velocity = Math.random() * 500 + 300;
+                    const vx = Math.cos(angle) * velocity;
+                    const vy = Math.sin(angle) * velocity - 300;
+                    
+                    confetti.style.transition = 'all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    document.body.appendChild(confetti);
+                    
+                    requestAnimationFrame(() => {
+                        confetti.style.transform = `translate(${vx}px, ${vy}px) rotate(${Math.random() * 720}deg)`;
+                        confetti.style.opacity = '0';
+                    });
+                    
+                    setTimeout(() => confetti.remove(), 2500);
+                }, i * 10);
+            }
+        }
+
+        function celebrate() {
+            confettiExplosion();
+        }
+
+        // Initialize effects
+        createSparkles();
+        createFloatingEmojis();
+        
+        // Continuously create effects
+        setInterval(createSparkles, 3000);
+        setInterval(createFloatingEmojis, 8000);
+
+        // Initial confetti on page load
+        setTimeout(confettiExplosion, 500);
+    </script>
+</body>
+</html>

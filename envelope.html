@@ -1089,13 +1089,8 @@
         }
 
         function goToPuzzle() {
-            // Show party details directly
-            const partyDetails = document.getElementById('partyDetails');
-            partyDetails.style.display = 'block';
-            partyDetails.style.animation = 'fadeIn 0.8s ease-in-out';
-            
-            // Confetti celebration!
-            confettiExplosion();
+            // Navigate to party details page
+            window.location.href = 'party.html';
         }
 
         // Initialize effects
