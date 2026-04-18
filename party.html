@@ -255,6 +255,54 @@
 
             <hr class="divider">
 
+            <div class="rsvp-section" style="margin-top: 30px; padding: 25px; background: rgba(118, 75, 162, 0.1); border-radius: 15px; border: 2px solid #764ba2;">
+                <h3 style="font-family: 'Great Vibes', cursive; font-size: 2.2em; color: #764ba2; margin-bottom: 20px;">
+                    RSVP - Let Me Know You're Coming! 🎊
+                </h3>
+                <form id="rsvpForm" style="text-align: left;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #2c3e50; display: block; margin-bottom: 5px;">
+                            Your Name: *
+                        </label>
+                        <input type="text" id="guestName" required 
+                            style="width: 100%; padding: 12px; border: 2px solid #d4af37; border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 1em;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #2c3e50; display: block; margin-bottom: 5px;">
+                            Will you attend? *
+                        </label>
+                        <select id="attendance" required 
+                            style="width: 100%; padding: 12px; border: 2px solid #d4af37; border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 1em;">
+                            <option value="">Select an option</option>
+                            <option value="yes">🎉 Yes, I'll be there!</option>
+                            <option value="maybe">🤔 Maybe, I'll try to make it</option>
+                            <option value="no">😢 Sorry, can't make it</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="font-family: 'Cormorant Garamond', serif; font-size: 1.1em; color: #2c3e50; display: block; margin-bottom: 5px;">
+                            Message (optional):
+                        </label>
+                        <textarea id="message" rows="3" 
+                            style="width: 100%; padding: 12px; border: 2px solid #d4af37; border-radius: 8px; font-family: 'Cormorant Garamond', serif; font-size: 1em; resize: vertical;">
+                        </textarea>
+                    </div>
+                    
+                    <button type="submit" 
+                        style="width: 100%; padding: 15px; background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); color: white; border: none; border-radius: 10px; font-family: 'Great Vibes', cursive; font-size: 1.5em; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);">
+                        Send RSVP 💌
+                    </button>
+                </form>
+                
+                <div id="thankYou" style="display: none; text-align: center; padding: 20px;">
+                    <div style="font-size: 3em; margin-bottom: 10px;">🎉</div>
+                    <h3 style="font-family: 'Great Vibes', cursive; font-size: 2em; color: #764ba2; margin-bottom: 10px;">Thank You!</h3>
+                    <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.2em; color: #2c3e50;">Your RSVP has been sent. See you at the party!</p>
+                </div>
+            </div>
+
             <button class="celebration-btn" onclick="celebrate()">
                 Celebrate! 🎊
             </button>
@@ -335,6 +383,35 @@
         function celebrate() {
             confettiExplosion();
         }
+
+        // Handle RSVP form submission
+        document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('guestName').value.trim();
+            const attendance = document.getElementById('attendance').value;
+            const message = document.getElementById('message').value.trim();
+            
+            // Create email body
+            const subject = encodeURIComponent(`RSVP for Birthday Party - ${name}`);
+            const body = encodeURIComponent(
+                `Birthday Party RSVP\n\n` +
+                `Guest Name: ${name}\n` +
+                `Attendance: ${attendance === 'yes' ? '✅ Yes, attending!' : attendance === 'maybe' ? '🤔 Maybe' : '❌ Cannot attend'}\n` +
+                (message ? `Message: ${message}\n` : '') +
+                `\n---\nSent from Birthday Invitation Website`
+            );
+            
+            // Open email client
+            window.location.href = `mailto:YOUR_EMAIL@example.com?subject=${subject}&body=${body}`;
+            
+            // Show thank you message
+            document.getElementById('rsvpForm').style.display = 'none';
+            document.getElementById('thankYou').style.display = 'block';
+            
+            // Celebration!
+            confettiExplosion();
+        });
 
         // Initialize effects
         createSparkles();
