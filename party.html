@@ -391,26 +391,33 @@
             const name = document.getElementById('guestName').value.trim();
             const attendance = document.getElementById('attendance').value;
             const message = document.getElementById('message').value.trim();
+
+            if (!name || !attendance) {
+                alert('Please fill in your name and attendance!');
+                return;
+            }
             
-            // Create email body
-            const subject = encodeURIComponent(`RSVP for Birthday Party - ${name}`);
-            const body = encodeURIComponent(
-                `Birthday Party RSVP\n\n` +
-                `Guest Name: ${name}\n` +
-                `Attendance: ${attendance === 'yes' ? '✅ Yes, attending!' : attendance === 'maybe' ? '🤔 Maybe' : '❌ Cannot attend'}\n` +
-                (message ? `Message: ${message}\n` : '') +
-                `\n---\nSent from Birthday Invitation Website`
-            );
+            const attendanceText = attendance === 'yes' ? '✅ Yes, I will be there!' 
+                                 : attendance === 'maybe' ? '🤔 Maybe, I will try to make it' 
+                                 : '❌ Sorry, I cannot attend';
+
+            const subject = `RSVP from ${name}`;
+            const body = `Hi!%0A%0AMy name is ${encodeURIComponent(name)}.%0AAttendance: ${encodeURIComponent(attendanceText)}%0A${message ? 'Message: ' + encodeURIComponent(message) + '%0A' : ''}%0A----%0ASent from Birthday Invitation`;
             
-            // Open email client
-            window.location.href = `mailto:legendmyth421@gmail.com?subject=${subject}&body=${body}`;
+            // Create a proper mailto link and click it
+            const mailtoLink = document.createElement('a');
+            mailtoLink.href = `mailto:legendmyth421@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            mailtoLink.style.display = 'none';
+            document.body.appendChild(mailtoLink);
+            mailtoLink.click();
+            document.body.removeChild(mailtoLink);
             
             // Show thank you message
-            document.getElementById('rsvpForm').style.display = 'none';
-            document.getElementById('thankYou').style.display = 'block';
-            
-            // Celebration!
-            confettiExplosion();
+            setTimeout(() => {
+                document.getElementById('rsvpForm').style.display = 'none';
+                document.getElementById('thankYou').style.display = 'block';
+                confettiExplosion();
+            }, 500);
         });
 
         // Initialize effects
