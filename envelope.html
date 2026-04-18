@@ -945,8 +945,22 @@
                         <em>P.S. There will be cake. And possibly embarrassing stories about me. No promises on which one comes first.</em> 🤭
                     </div>
                     <div class="letter-signature">
-                        See you there (if you can solve the puzzles)! 🎈<br>
+                        See you there! 🎈<br>
                         - Your Favorite Human (self-proclaimed) 💫
+                    </div>
+                    
+                    <div class="party-details" id="partyDetails" style="display: none;">
+                        <div style="margin-top: 25px; padding-top: 20px; border-top: 3px double #d4af37;">
+                            <h3 style="font-family: 'Great Vibes', cursive; font-size: 2em; color: #764ba2; margin-bottom: 15px; text-align: center;">
+                                🎉 Party Details 🎉
+                            </h3>
+                            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.2em; line-height: 2; color: #2c3e50;">
+                                <p><strong>📅 Date:</strong> April 23rd, 2026</p>
+                                <p><strong>⏰ Time:</strong> [Add your time]</p>
+                                <p><strong>📍 Location:</strong> [Add your location]</p>
+                                <p><strong>🎮 Dress Code:</strong> Come as your favorite character!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -980,7 +994,7 @@
         </div>
 
         <button class="continue-btn" id="continueBtn" onclick="goToPuzzle()">
-            Open Invitation 🎁
+            Reveal Party Details 🎁
         </button>
     </div>
 
@@ -1075,7 +1089,13 @@
         }
 
         function goToPuzzle() {
-            window.location.href = 'index.html';
+            // Show party details directly
+            const partyDetails = document.getElementById('partyDetails');
+            partyDetails.style.display = 'block';
+            partyDetails.style.animation = 'fadeIn 0.8s ease-in-out';
+            
+            // Confetti celebration!
+            confettiExplosion();
         }
 
         // Initialize effects
